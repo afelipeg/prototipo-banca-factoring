@@ -3,6 +3,7 @@
 import {
   BotMessageSquareIcon,
   FileSearchIcon,
+  GaugeIcon,
   InboxIcon,
   LogOutIcon,
   MonitorIcon,
@@ -70,6 +71,7 @@ const NAV: Record<View, readonly { href: string; label: string; icon: ReactNode 
     { href: "/banco/comite", label: "Bandeja del comité", icon: <InboxIcon /> },
     { href: "/banco/expediente", label: "Expediente y trazas", icon: <FileSearchIcon /> },
     { href: "/banco/auditoria", label: "Auditoría", icon: <ShieldCheckIcon /> },
+    { href: "/banco/metricas", label: "Calidad y métricas", icon: <GaugeIcon /> },
   ],
 };
 

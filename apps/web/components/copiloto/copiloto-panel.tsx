@@ -4,6 +4,7 @@ import { ClientError } from "eve/client";
 import { activeTurn, interaction, interactions, turn as turnOf } from "eve/events";
 import { useEveAgent } from "eve/react";
 import { AlertCircleIcon, PanelRightCloseIcon, PlusIcon, SparklesIcon, SquareIcon } from "lucide-react";
+import Link from "next/link";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { COPILOTO_AGENT } from "@/app/eve-agent";
 import { AgentMessage } from "@/app/_components/agent-message";
@@ -25,6 +26,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AgentActivityFeed } from "@/components/trace/agent-activity-feed";
 import { buildTrace } from "@/lib/trace";
+import type { ResumenEvals } from "./copiloto-shell";
 import { CARD_TOOLS, ToolResultCard } from "./tool-cards";
 
 export const COPILOTO_SESSION_KEY = "banco-pyme:copiloto-sesion";
@@ -56,11 +58,13 @@ type ResultCard = { readonly callId: string; readonly name: string; readonly out
  * conversación nueva.
  */
 export function CopilotoPanel({
+  resumenEvals,
   open,
   mobile,
   onOpenChange,
   onNewConversation,
 }: {
+  readonly resumenEvals: ResumenEvals;
   readonly open: boolean;
   readonly mobile: boolean;
   readonly onOpenChange: (open: boolean) => void;
@@ -214,7 +218,15 @@ export function CopilotoPanel({
       <div className="flex items-center gap-2">
         <SparklesIcon className="size-4 text-primary" aria-hidden="true" />
         <span className="text-sm font-semibold">Copiloto</span>
-        {isBusy ? <Badge variant="info-light">Trabajando</Badge> : null}
+        {isBusy ? (
+          <Badge variant="info-light">Trabajando</Badge>
+        ) : (
+          <Link href="/banco/metricas" title="Ver resultados de evals y métricas" className="rounded-full focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none">
+            <Badge variant={resumenEvals.aprobados === resumenEvals.total ? "success-light" : "destructive-light"} radius="full">
+              Evals {resumenEvals.aprobados}/{resumenEvals.total}
+            </Badge>
+          </Link>
+        )}
       </div>
       <div className="flex items-center gap-1">
         <Button type="button" variant="outline" size="sm" onClick={newConversation}>

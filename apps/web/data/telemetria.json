@@ -1,0 +1,195 @@
+{
+  "generadoEn": "2026-11-11T21:57:45.709Z",
+  "ventana": "7d",
+  "fuente": "Vercel AI Gateway (clave del prototipo) y Vercel Agent Runs (prototipo-banca-factoring)",
+  "nota": "Incluye tráfico de desarrollo, evals y producción de la clave del prototipo.",
+  "gateway": {
+    "costoUsd": 3.7815,
+    "solicitudes": 606,
+    "tasaExito": 0.9983,
+    "porModelo": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "costoUsd": 0.1108,
+        "solicitudes": 324,
+        "tokensEntrada": 828,
+        "tokensSalida": 103681,
+        "latenciaP50Ms": 1467,
+        "latenciaP95Ms": 4613,
+        "ttftP50Ms": 627
+      },
+      {
+        "modelo": "anthropic/claude-opus-5.5",
+        "costoUsd": 3.2572,
+        "solicitudes": 198,
+        "tokensEntrada": 730,
+        "tokensSalida": 59265,
+        "latenciaP50Ms": 4487,
+        "latenciaP95Ms": 9636,
+        "ttftP50Ms": 1275
+      },
+      {
+        "modelo": "anthropic/claude-sonnet-5.5",
+        "costoUsd": 0.4129,
+        "solicitudes": 59,
+        "tokensEntrada": 198,
+        "tokensSalida": 20351,
+        "latenciaP50Ms": 2560,
+        "latenciaP95Ms": 5115,
+        "ttftP50Ms": 1056
+      },
+      {
+        "modelo": "typesafe-ai/jev",
+        "costoUsd": 0.0006,
+        "solicitudes": 25,
+        "tokensEntrada": 15137,
+        "tokensSalida": 609,
+        "latenciaP50Ms": 94,
+        "latenciaP95Ms": 134,
+        "ttftP50Ms": 0
+      }
+    ],
+    "serieHoraria": [
+      {
+        "hora": "2026-11-10T21:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-10T22:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-10T23:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T00:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T01:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T02:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T03:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T04:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T05:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T06:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T07:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T08:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T09:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T10:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T11:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T12:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T13:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T14:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T15:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T16:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T17:00:00.000Z",
+        "costoUsd": 0.7102,
+        "solicitudes": 84
+      },
+      {
+        "hora": "2026-11-11T18:00:00.000Z",
+        "costoUsd": 1.262,
+        "solicitudes": 185
+      },
+      {
+        "hora": "2026-11-11T19:00:00.000Z",
+        "costoUsd": 0.2997,
+        "solicitudes": 59
+      },
+      {
+        "hora": "2026-11-11T20:00:00.000Z",
+        "costoUsd": 0,
+        "solicitudes": 0
+      },
+      {
+        "hora": "2026-11-11T21:00:00.000Z",
+        "costoUsd": 1.5096,
+        "solicitudes": 278
+      }
+    ]
+  },
+  "agentRuns": {
+    "resumen": {
+      "runs": 6,
+      "completed": 0,
+      "failed": 0,
+      "cancelled": 1,
+      "costUsd": 0
+    },
+    "porEstado": {
+      "waiting": 5,
+      "cancelled": 1
+    },
+    "tokens": 381729,
+    "confianza": "real"
+  }
+}

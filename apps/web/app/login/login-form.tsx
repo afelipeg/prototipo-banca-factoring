@@ -87,10 +87,13 @@ export function LoginForm({ chips }: { readonly chips: readonly DemoUserChip[] }
                 value={chip.email}
                 variant="outline"
                 disabled={pending}
-                className="justify-between gap-3"
-                title={chip.empresa}
+                className="h-auto justify-between gap-3 py-2 text-left"
+                title={`${chip.name} · ${chip.email}`}
               >
-                <span className="truncate">{chip.email}</span>
+                <span className="flex min-w-0 flex-col gap-0.5">
+                  <span className="truncate font-medium">{chip.empresa}</span>
+                  <span className="truncate text-xs font-normal text-muted-foreground">{chip.escenario}</span>
+                </span>
                 <Badge variant={chip.role === "banco" ? "info-light" : "primary-light"}>
                   {chip.role === "banco" ? "Banco" : "Empresario"}
                 </Badge>

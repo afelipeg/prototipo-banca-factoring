@@ -1,0 +1,96 @@
+{
+  "generadoEn": "2026-11-11T21:59:33.033Z",
+  "solicitudes": [
+    {
+      "factura": "FE-1001",
+      "pyme": "Confecciones Andinas S.A.S.",
+      "valorCOP": 48500000,
+      "score": 724,
+      "banda": "A",
+      "decision": "aprobacion_automatica",
+      "desembolsoNetoCOP": 41973083
+    },
+    {
+      "factura": "FE-2002",
+      "pyme": "Metalmecánica del Valle S.A.S.",
+      "valorCOP": 385000000,
+      "score": 540,
+      "banda": "C",
+      "decision": "comite_humano",
+      "desembolsoNetoCOP": 321454518
+    },
+    {
+      "factura": "FE-3003",
+      "pyme": "Distribuciones Caribe Express",
+      "valorCOP": 120000000,
+      "score": 387,
+      "banda": "D",
+      "decision": "rechazo",
+      "desembolsoNetoCOP": null
+    }
+  ],
+  "cartera": {
+    "fechaCorte": "2026-11-11",
+    "kpis": {
+      "operacionesActivas": 2,
+      "saldoAnticipadoCOP": 101700000,
+      "operacionesPagadas": 2,
+      "pagadasATiempoPct": 50,
+      "solicitudesEnTramite": 2,
+      "montoEnTramiteCOP": 433500000
+    },
+    "exposicionPorPagador": [
+      {
+        "pagador": "Constructora Pacífico Norte S.A.",
+        "calificacion": "BBB+",
+        "montoCOP": 411300000,
+        "participacionPct": 83.6
+      },
+      {
+        "pagador": "Almacenes La Sabana S.A.",
+        "calificacion": "AAA",
+        "montoCOP": 80550000,
+        "participacionPct": 16.4
+      }
+    ],
+    "vencimientosPorSemana": [
+      {
+        "semana": "S1",
+        "montoCOP": 36900000
+      },
+      {
+        "semana": "S2",
+        "montoCOP": 0
+      },
+      {
+        "semana": "S3",
+        "montoCOP": 64800000
+      },
+      {
+        "semana": "S4",
+        "montoCOP": 0
+      },
+      {
+        "semana": "S5",
+        "montoCOP": 0
+      },
+      {
+        "semana": "S6",
+        "montoCOP": 0
+      }
+    ],
+    "alertas": [
+      {
+        "severidad": "media",
+        "tipo": "vencimiento_proximo",
+        "operacion": "OP-0002",
+        "detalle": "OP-0002 (Confecciones Andinas S.A.S.) vence en 7 días; pagador: Almacenes La Sabana S.A."
+      },
+      {
+        "severidad": "media",
+        "tipo": "concentracion_pagador",
+        "detalle": "Constructora Pacífico Norte S.A. concentra el 83,6 % de la exposición."
+      }
+    ]
+  }
+}

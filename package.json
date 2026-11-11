@@ -10,14 +10,17 @@
     "build": "eve build",
     "deploy": "eve deploy",
     "dev": "eve dev --agent asesor",
-    "eval": "eve eval --agent asesor",
+    "eval": "eve eval --agent asesor && eve eval --agent copiloto",
     "start": "eve start",
     "typecheck": "tsc",
     "test": "node --test \"tests/**/*.test.ts\"",
     "dev:web": "next dev apps/web",
     "build:web": "next build apps/web",
     "dev:eve": "eve dev --agent asesor",
-    "dev:all": "vercel dev --local"
+    "dev:all": "vercel dev --local",
+    "metricas:evals": "node scripts/exportar-evals.ts",
+    "metricas:telemetria": "node scripts/exportar-telemetria.ts --key-name prototipo-banca",
+    "metricas:dominio": "node scripts/exportar-dominio.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
