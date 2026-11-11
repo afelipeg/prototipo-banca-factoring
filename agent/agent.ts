@@ -1,6 +1,6 @@
 import { defineAgent } from "eve";
 
 export default defineAgent({
-  model: "openai/gpt-6-luna-fast",
+  model: "anthropic/claude-opus-5.5",
   reasoning: "high",
 });
