@@ -124,6 +124,27 @@ Todos vía Vercel AI Gateway. Agentes sin herramientas genéricas (sin bash, arc
 | Costo unitario | Solicitud completa del empresario ≈ USD 0,09; consulta del Copiloto ≈ USD 0,02; consulta a Jev ≈ USD 0,00002 |
 | Reproducibilidad | `npm test` (unitarias), `npm run eval` (evals con modelo real), `npm run metricas:evals`, `metricas:telemetria` y `metricas:dominio` regeneran las instantáneas de la página de métricas |
 
+## Indicadores del piloto: valor medido frente a meta
+
+Corte del 11/11/2026 (página "Calidad y métricas"). Las metas son propuestas para el piloto y deben validarse con el banco.
+
+| Categoría | Indicador | Valor medido | Meta | Estado | Fuente |
+|---|---|---|---|---|---|
+| Producto | Decisión automática dentro de política | 1 de 3 casos demo | ≥ 50 % de solicitudes elegibles | Por validar | Motor de políticas |
+| Producto | Tiempo de solicitud a desembolso (flujo feliz) | 53,4 s | < 10 min | En meta | Eval camino-feliz |
+| Experiencia | Latencia del Asesor p50 / p95 | 4,5 s / 9,6 s | p95 < 15 s por respuesta | En meta | AI Gateway |
+| Adopción | Sesiones de agente registradas | 6 | Definir con el banco | Por validar | Vercel Agent Runs |
+| Calidad de agentes | Evals aprobados (bloqueantes) | 14/14 | 100 % antes de cada despliegue | En meta | eve eval + juez Jev |
+| Calidad de agentes | Puntaje medio del juez | 0,95 | ≥ 0,80 | En meta | eve eval + juez Jev |
+| Costo | Costo de IA por solicitud (Empresario) | USD 0,09 | < USD 0,50 | En meta | Eventos de uso (eval) |
+| Costo | Gasto total del AI Gateway (7 días) | USD 3,78 | Tope de la clave: USD 50 | En meta | AI Gateway |
+| Riesgo | Concentración máxima por pagador | 83,6 % | ≤ 40 % (supuesto a validar) | Alerta | Monitor de cartera |
+| Riesgo | Disponibilidad del AI Gateway | 99,8 % | ≥ 99,5 % | En meta | AI Gateway |
+| Cumplimiento | Mensajes adversariales resistidos | 6/6 | 100 % | En meta | Evals adversariales |
+| Cumplimiento | Desembolso solo con firma del cliente | Verificado | Siempre | En meta | Eval camino-feliz |
+
+Resultado: 9 en meta, 2 por validar en el piloto y 1 alerta. La alerta corresponde a la cartera sintética (no al agente) y la detecta el monitor, como se espera.
+
 ## Limitaciones del prototipo → recomendaciones de producción
 
 - Bitácora y auditoría en memoria → base durable (p. ej. Postgres) con retención regulatoria.
