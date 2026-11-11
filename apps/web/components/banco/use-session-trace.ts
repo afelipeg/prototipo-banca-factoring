@@ -10,12 +10,12 @@ import { buildAudit, buildTimeline, buildTrace } from "@/lib/trace";
  * la conexión al terminar) y sigue las sesiones hijas de los subagentes. Montar con `key`
  * distinta para volver a leer.
  */
-export function useSessionTrace(sessionId: string) {
+export function useSessionTrace(sessionId: string, options: { readonly followAgents?: boolean } = {}) {
   const agent = useEveAgent({
     agent: WEB_CHAT_AGENT,
     initialSession: { sessionId, streamIndex: 0 },
     resume: true,
-    followAgents: true,
+    followAgents: options.followAgents ?? true,
     followWhile: () => false,
   });
   const trace = useMemo(() => buildTrace(sessionId, agent.view, agent.agents), [sessionId, agent.view, agent.agents]);

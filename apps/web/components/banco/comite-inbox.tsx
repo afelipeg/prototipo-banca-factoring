@@ -2,7 +2,7 @@
 
 import type { ColumnDef } from "@tanstack/react-table";
 import { CheckCircle2Icon, InboxIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { DataTable } from "@/components/app/data-table";
 import { Alert, AlertDescription, AlertTitle } from "@/components/reui/alert";
 import { Badge } from "@/components/reui/badge";
@@ -22,15 +22,25 @@ import { useSessionTrace } from "./use-session-trace";
 
 type Resultado = { readonly tipo: "ok" | "sin-caso" | "error"; readonly mensaje: string };
 
-/** Si la última sesión terminó en comité humano, aporta ese caso real a la bandeja. */
-function LiveCase({ sessionId, onCase }: { readonly sessionId: string; readonly onCase: (c: CasoComite | undefined) => void }) {
-  const { trace } = useSessionTrace(sessionId);
-  const found = useMemo(() => {
+/**
+ * Si la última sesión terminó en comité humano, aporta ese caso real a la bandeja.
+ * El caso se deriva en el render y se entrega por render-prop: copiarlo al estado del padre
+ * desde un efecto encadenaba un render por cada evento del stream y saturaba React.
+ * No sigue subagentes: el caso completo está en el resultado de `evaluar_solicitud`.
+ */
+function LiveCase({
+  sessionId,
+  children,
+}: {
+  readonly sessionId: string;
+  readonly children: (liveCase: CasoComite | undefined) => ReactNode;
+}) {
+  const { trace } = useSessionTrace(sessionId, { followAgents: false });
+  const liveCase = useMemo(() => {
     const step = [...trace.steps].reverse().find((s) => s.name === "evaluar_solicitud" && casoDesdeEvaluacion(s.input, s.output));
     return step ? casoDesdeEvaluacion(step.input, step.output) : undefined;
   }, [trace]);
-  useEffect(() => onCase(found), [found, onCase]);
-  return null;
+  return children(liveCase);
 }
 
 function SectionTitle({ children }: { readonly children: string }) {
@@ -214,12 +224,18 @@ function Metric({ label, value }: { readonly label: string; readonly value: stri
 }
 
 export function ComiteInbox({ analista }: { readonly analista: string }) {
-  const [liveCase, setLiveCase] = useState<CasoComite>();
   const [lastSession, setLastSession] = useState<string>();
+  useEffect(() => setLastSession(readLastSession()), []);
+
+  if (!lastSession) return <InboxBody analista={analista} liveCase={undefined} />;
+  return (
+    <LiveCase sessionId={lastSession}>{(liveCase) => <InboxBody analista={analista} liveCase={liveCase} />}</LiveCase>
+  );
+}
+
+function InboxBody({ analista, liveCase }: { readonly analista: string; readonly liveCase: CasoComite | undefined }) {
   const [selected, setSelected] = useState<string>();
   const [decisiones, setDecisiones] = useState<Record<string, DecisionComite>>({});
-
-  useEffect(() => setLastSession(readLastSession()), []);
 
   // Un caso real de la sesión reemplaza al sembrado si es la misma factura.
   const casos = useMemo<CasoComite[]>(() => {
@@ -262,7 +278,6 @@ export function ComiteInbox({ analista }: { readonly analista: string }) {
 
   return (
     <div className="flex flex-col gap-6 px-4 pb-6">
-      {lastSession ? <LiveCase sessionId={lastSession} onCase={setLiveCase} /> : null}
       <div className="flex flex-col gap-0.5">
         <h1 className="text-xl font-semibold tracking-tight">Bandeja del comité</h1>
         <p className="text-sm text-muted-foreground">Casos que esperan la decisión de una persona.</p>
