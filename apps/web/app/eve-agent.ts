@@ -1,2 +1,3 @@
-/** Named workspace agent selected by the Web Chat installer. */
-export const WEB_CHAT_AGENT: string | undefined = undefined;
+/** Agentes del workspace de eve (montados en /eve/<nombre>/v1/*). */
+export const WEB_CHAT_AGENT = "asesor";
+export const COPILOTO_AGENT = "copiloto";

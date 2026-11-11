@@ -1,4 +1,4 @@
-import { FACTURAS, PAGADORES, PYMES } from "../../../agent/lib/data/pymes";
+import { FACTURAS, PAGADORES, PYMES } from "../../../lib/data/pymes";
 
 export type CasoComite = {
   readonly numeroFactura: string;

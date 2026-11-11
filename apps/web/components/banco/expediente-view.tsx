@@ -15,7 +15,7 @@ import {
   TimelineTitle,
 } from "@/components/reui/timeline";
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { StepItem } from "@/components/trace/trace-timeline";
+import { ActivityStepItem } from "@/components/trace/agent-activity-feed";
 import { formatTime, formatUsd } from "@/lib/format";
 import { useSessionTrace } from "./use-session-trace";
 import { SessionError, SessionLoading } from "./session-states";
@@ -82,7 +82,7 @@ export function ExpedienteView({ sessionId, onRetry }: { readonly sessionId: str
           <Timeline value={timeline.length}>
             {timeline.map((entry, i) =>
               entry.kind === "step" ? (
-                <StepItem key={entry.id} step={entry.step} index={i + 1} />
+                <ActivityStepItem key={entry.id} step={entry.step} index={i + 1} detail showActor />
               ) : (
                 <TimelineItem key={entry.id} step={i + 1}>
                   <TimelineHeader>

@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Trace } from "@/lib/trace";
-import { TraceTimeline } from "./trace-timeline";
+import { AgentActivityFeed } from "./agent-activity-feed";
+import { OfertaChart, asOferta } from "@/components/charts/oferta-chart";
 
 export function TracePanelSkeleton() {
   return (
@@ -28,6 +29,7 @@ export function TracePanel({
   readonly loading: boolean;
   readonly onClose: () => void;
 }) {
+  const oferta = [...trace.steps].reverse().find((s) => s.name === "calcular_oferta" && asOferta(s.output));
   const empty = trace.steps.length === 0 && trace.actors.every((a) => a.steps.length === 0);
   return (
     <Frame spacing="sm" className="h-full min-h-0">
@@ -54,7 +56,10 @@ export function TracePanel({
             </EmptyHeader>
           </Empty>
         ) : (
-          <TraceTimeline trace={trace} />
+          <div className="flex flex-col gap-5">
+            {oferta ? <OfertaChart oferta={asOferta(oferta.output)!} /> : null}
+            <AgentActivityFeed trace={trace} />
+          </div>
         )}
       </FramePanel>
     </Frame>

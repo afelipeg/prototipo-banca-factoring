@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { buscarFactura, buscarPagador, buscarPyme, kycConsistente } from "../agent/lib/consultas.ts";
-import { calcularOferta } from "../agent/lib/oferta.ts";
-import { evaluarPoliticas } from "../agent/lib/politicas.ts";
-import { calcularScore } from "../agent/lib/score.ts";
-import { detectarInyeccion, enmascararPII } from "../agent/lib/seguridad.ts";
-import { listarAuditoria, registrarAuditoria } from "../agent/lib/auditoria.ts";
-import { NIT_PYME_1, NIT_PYME_2, NIT_PYME_3 } from "../agent/lib/data/pymes.ts";
+import { buscarFactura, buscarPagador, buscarPyme, kycConsistente } from "../lib/consultas.ts";
+import { calcularOferta } from "../lib/oferta.ts";
+import { evaluarPoliticas } from "../lib/politicas.ts";
+import { calcularScore } from "../lib/score.ts";
+import { detectarInyeccion, enmascararPII } from "../lib/seguridad.ts";
+import { listarAuditoria, registrarAuditoria } from "../lib/auditoria.ts";
+import { NIT_PYME_1, NIT_PYME_2, NIT_PYME_3 } from "../lib/data/pymes.ts";
 
 function evaluar(nit: string, numero: string) {
   const p = buscarPyme(nit)!;

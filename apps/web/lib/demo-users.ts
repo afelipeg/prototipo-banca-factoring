@@ -1,4 +1,4 @@
-import { PYMES, USUARIOS } from "../../../agent/lib/data/pymes";
+import { PYMES, USUARIOS } from "../../../lib/data/pymes";
 import type { SessionUser } from "./session";
 
 /** Usuarios de demostración (datos sintéticos del agente, solo lectura). */

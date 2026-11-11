@@ -16,14 +16,15 @@ const config = await withEve({
 // Los endpoints de canales propios del agente no se publican solos (ver docs de eve,
 // "Compose agents with other Vercel services"): /comite/* debe llegar al servicio `eve`.
 // La Bandeja del comité (apps/web) lo invoca desde el servidor de Next, en el mismo origen.
-const eveService = config.services?.eve as { routes?: unknown[] } | undefined;
+// En el workspace, el canal vive en el agente `asesor` (servicio `eve-asesor`).
+const eveService = config.services?.["eve-asesor"] as { routes?: unknown[] } | undefined;
 eveService?.routes?.push({
   src: "^/comite/(.*)$",
   transforms: [{ args: "/comite/$1", op: "set", type: "request.path" }],
 });
 config.routes?.unshift({
   src: "^/comite/(.*)$",
-  destination: { type: "service", service: "eve" },
+  destination: { type: "service", service: "eve-asesor" },
 });
 
 export default config;

@@ -250,6 +250,29 @@ export const CARTERA: Record<string, OperacionCartera[]> = {
       fechaVencimiento: fechaRelativa(7),
     },
   ],
+  [NIT_PYME_2]: [
+    {
+      id: "OP-0101",
+      numeroFactura: "FE-1870",
+      pagador: "Constructora Pacífico Norte S.A.",
+      valorFactura: 96_000_000,
+      anticipoDesembolsado: 86_400_000,
+      estado: "pagada",
+      fechaDesembolso: fechaRelativa(-150),
+      fechaVencimiento: fechaRelativa(-60),
+      fechaPago: fechaRelativa(-47),
+    },
+    {
+      id: "OP-0103",
+      numeroFactura: "FE-1988",
+      pagador: "Constructora Pacífico Norte S.A.",
+      valorFactura: 72_000_000,
+      anticipoDesembolsado: 64_800_000,
+      estado: "activa",
+      fechaDesembolso: fechaRelativa(-40),
+      fechaVencimiento: fechaRelativa(20),
+    },
+  ],
 };
 
 // Contrasena en texto plano: solo para el prototipo.

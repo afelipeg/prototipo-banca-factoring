@@ -24,7 +24,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ num
   const key = process.env.COMITE_DEMO_KEY;
   if (!key) return NextResponse.json({ error: "El servidor no tiene configurada la clave del comité." }, { status: 500 });
 
-  // El agente se publica en el mismo origen (vercel.ts enruta /comite/* al servicio `eve`).
+  // El agente se publica en el mismo origen (vercel.ts enruta /comite/* al servicio `eve-asesor`).
   const host = request.headers.get("x-forwarded-host") ?? request.headers.get("host");
   const proto = request.headers.get("x-forwarded-proto") ?? new URL(request.url).protocol.replace(":", "");
   const base = process.env.AGENT_BASE_URL ?? (host ? `${proto}://${host}` : new URL(request.url).origin);

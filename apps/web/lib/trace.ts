@@ -20,6 +20,9 @@ export const AGENT_LABELS: Record<string, string> = {
   guardian_cumplimiento: "Guardián de cumplimiento",
   analista_riesgo: "Analista de riesgo",
   acompanamiento: "Acompañamiento",
+  copiloto: "Copiloto del analista",
+  cumplimiento: "Cumplimiento",
+  monitor_cartera: "Monitor de cartera",
 };
 
 export const TOOL_LABELS: Record<string, string> = {
@@ -43,6 +46,13 @@ export const TOOL_LABELS: Record<string, string> = {
   consultar_cartera: "Consulta de cartera",
   sugerir_siguiente_producto: "Sugerencia de siguiente producto",
   programar_recordatorio: "Programación de recordatorio",
+  consultar_expediente: "Consulta del expediente",
+  predecir_riesgo_jev: "Predicción de riesgo (Jev)",
+  redactar_acta: "Redacción del acta de comité",
+  revisar_listas_y_endoso: "Revisión de listas y endoso",
+  redactar_borrador_ros: "Borrador de reporte de operación sospechosa",
+  analizar_cartera: "Análisis de cartera",
+  registrar_alertas: "Registro de alertas",
 };
 
 export const STATE_LABELS: Record<CallState, string> = {
@@ -204,7 +214,7 @@ function actorSteps(view: SessionView, actor: string, skipAgentCalls: (c: CallOb
 }
 
 /** Pasos y agentes de una sesión, a partir del `view` raíz y de los hijos que el hook sigue. */
-export function buildTrace(sessionId: string, view: SessionView, agents: Agents): Trace {
+export function buildTrace(sessionId: string, view: SessionView, agents: Agents, rootAgent = "asesor"): Trace {
   const actors: TraceActor[] = [];
   const followedCalls = new Set<string>();
   let childrenFollowed = 0;
@@ -228,11 +238,11 @@ export function buildTrace(sessionId: string, view: SessionView, agents: Agents)
   }
   childActors.sort((a, b) => (a.startedAt ?? "").localeCompare(b.startedAt ?? ""));
 
-  const rootSteps = actorSteps(view, "asesor", (c) => c.kind === "agent" && followedCalls.has(c.callId));
+  const rootSteps = actorSteps(view, rootAgent, (c) => c.kind === "agent" && followedCalls.has(c.callId));
   actors.push({
     key: "root",
     sessionId,
-    label: AGENT_LABELS.asesor,
+    label: AGENT_LABELS[rootAgent] ?? rootAgent,
     steps: rootSteps,
     working: rootSteps.some((s) => s.state === "running" || s.state === "requested"),
     startedAt: sessionOf(view).startedAt,

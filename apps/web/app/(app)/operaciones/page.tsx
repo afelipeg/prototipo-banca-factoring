@@ -1,4 +1,4 @@
-import { CARTERA, PYMES } from "../../../../../agent/lib/data/pymes";
+import { CARTERA, PYMES } from "../../../../../lib/data/pymes";
 import { requireSession } from "@/lib/auth";
 import { OperacionesView, type OperacionRow } from "./operaciones-view";
 

@@ -13,7 +13,8 @@
     "allowImportingTsExtensions": true
   },
   "include": [
-    "agent/**/*.ts",
+    "agents/**/*.ts",
+    "lib/**/*.ts",
     "evals/**/*.ts",
     "tests/**/*.ts"
   ]

@@ -1,5 +1,4 @@
-import { eveChannel } from "eve/channels/eve";
-import { localDev, vercelOidc, verifyJwtHmac, withAuthChallenges, type AuthFn } from "eve/channels/auth";
+import { verifyJwtHmac, withAuthChallenges, type AuthFn } from "eve/channels/auth";
 
 const COOKIE = "bp_session";
 
@@ -8,7 +7,7 @@ const COOKIE = "bp_session";
  * al iniciar sesión. El navegador llama a /eve/v1/* en el mismo origen y la cookie viaja sola.
  * PROTOTIPO: en producción esto sería el IdP del banco (OIDC) con MFA.
  */
-const demoSessionAuth: AuthFn<Request> = withAuthChallenges(
+export const demoSessionAuth: AuthFn<Request> = withAuthChallenges(
   async (request) => {
     const secret = process.env.DEMO_SESSION_SECRET;
     if (!secret) return null;
@@ -33,14 +32,3 @@ function leerCookie(header: string | null, nombre: string): string | undefined {
   }
   return undefined;
 }
-
-export default eveChannel({
-  auth: [
-    // Lets the eve TUI and your Vercel deployments reach the deployed agent.
-    vercelOidc(),
-    // Open on localhost for `eve dev` and the REPL; ignored in production.
-    localDev(),
-    // Usuarios que iniciaron sesión en la app web (cookie firmada).
-    demoSessionAuth,
-  ],
-});
