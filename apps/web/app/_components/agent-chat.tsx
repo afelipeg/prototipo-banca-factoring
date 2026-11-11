@@ -34,7 +34,7 @@ import { Item, ItemContent, ItemDescription, ItemTitle } from "@/components/ui/i
 import { Trace, TraceIcon, TraceLine, TraceTitle } from "@/components/ui/trace";
 import { TracePanel } from "@/components/trace/trace-panel";
 import { buildTrace } from "@/lib/trace";
-import { writeLastSession } from "@/lib/session-store";
+import { saveConversation, writeLastSession } from "@/lib/session-store";
 import { WEB_CHAT_AGENT } from "@/app/eve-agent";
 import { AgentMessage } from "./agent-message";
 
@@ -56,11 +56,12 @@ const STARTERS = [
   },
 ] as const;
 
-export function AgentChat({ sessionId }: { readonly sessionId?: string }) {
+export function AgentChat({ sessionId, userKey }: { readonly sessionId?: string; readonly userKey: string }) {
   const [cancellationError, setCancellationError] = useState<string>();
   const [hasInputText, setHasInputText] = useState(false);
   const [traceOpen, setTraceOpen] = useState(false);
   const hasSubmittedMessage = useRef(false);
+  const firstMessage = useRef<string | undefined>(undefined);
 
   useEffect(() => {
     // Abierto por defecto en pantallas anchas; en pantallas angostas se abre a pedido.
@@ -92,7 +93,11 @@ export function AgentChat({ sessionId }: { readonly sessionId?: string }) {
           },
     resume: sessionId !== undefined,
     onSessionChange(session) {
-      if (session !== undefined) writeLastSession(session.sessionId);
+      if (session !== undefined) {
+        writeLastSession(session.sessionId);
+        // Memoria de conversaciones: el índice local permite volver a esta sesión desde el sidebar.
+        saveConversation(userKey, session.sessionId, firstMessage.current);
+      }
       if (hasSubmittedMessage.current && session !== undefined) {
         replaceSessionRoute(session.sessionId);
       }
@@ -154,7 +159,9 @@ export function AgentChat({ sessionId }: { readonly sessionId?: string }) {
     setHasInputText(false);
     setCancellationError(undefined);
     hasSubmittedMessage.current = true;
+    firstMessage.current ??= text;
     if (agent.session !== undefined) replaceSessionRoute(agent.session.sessionId);
+    if (agent.session !== undefined) saveConversation(userKey, agent.session.sessionId, text);
     const options = turnOpen ? { turnPolicy: "steer" as const } : undefined;
 
     if (message.files.length === 0) {
@@ -208,7 +215,7 @@ export function AgentChat({ sessionId }: { readonly sessionId?: string }) {
                 type="button"
                 variant="outline"
                 size="sm"
-                onClick={() => window.location.assign("/asesor")}
+                onClick={() => window.location.assign("/asesor?nueva=1")}
               >
                 <PlusIcon />
                 Nueva conversación

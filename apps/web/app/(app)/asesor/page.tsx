@@ -1,5 +1,11 @@
-import { AgentChat } from "@/app/_components/agent-chat";
+import { requireSession } from "@/lib/auth";
+import { AsesorEntry } from "./asesor-entry";
 
-export default function AsesorPage() {
-  return <AgentChat />;
+export default async function AsesorPage({
+  searchParams,
+}: {
+  readonly searchParams: Promise<{ readonly nueva?: string }>;
+}) {
+  const [user, params] = await Promise.all([requireSession(), searchParams]);
+  return <AsesorEntry userKey={user.email} nueva={params.nueva === "1"} />;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { FileSearchIcon } from "lucide-react";
+import { MessageResponse } from "@/components/ai-elements/message";
 import { Badge } from "@/components/reui/badge";
 import { Frame, FrameDescription, FrameHeader, FramePanel, FrameTitle } from "@/components/reui/frame";
 import {
@@ -94,7 +95,7 @@ export function ExpedienteView({ sessionId, onRetry }: { readonly sessionId: str
                     <Badge variant="outline" className="w-fit">
                       Mensaje
                     </Badge>
-                    <p className="text-sm whitespace-pre-wrap text-foreground">{entry.text}</p>
+                    <MessageResponse className="text-sm text-foreground">{entry.text}</MessageResponse>
                   </TimelineContent>
                 </TimelineItem>
               ),

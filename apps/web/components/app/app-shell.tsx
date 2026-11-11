@@ -56,6 +56,7 @@ import {
 } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import type { SessionUser } from "@/lib/session";
+import { type Conversation, listConversations, onConversationsChange } from "@/lib/session-store";
 import { cn } from "@/lib/utils";
 
 type View = "empresario" | "banco";
@@ -214,6 +215,7 @@ export function AppShell({ user, children }: { readonly user: SessionUser; reado
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
+            {view === "empresario" ? <ConversationsGroup userKey={user.email} pathname={pathname} /> : null}
           </SidebarContent>
           <SidebarFooter>
             <UserMenu user={user} />
@@ -240,5 +242,41 @@ export function AppShell({ user, children }: { readonly user: SessionUser; reado
         </SidebarInset>
       </SidebarProvider>
     </TooltipProvider>
+  );
+}
+
+/** Memoria de conversaciones: cada sesión con el asesor queda en la lista para retomarla. */
+function ConversationsGroup({ userKey, pathname }: { readonly userKey: string; readonly pathname: string }) {
+  const [items, setItems] = useState<Conversation[]>([]);
+
+  useEffect(() => {
+    const refresh = () => setItems(listConversations(userKey));
+    refresh();
+    return onConversationsChange(refresh);
+  }, [userKey]);
+
+  if (items.length === 0) return null;
+
+  return (
+    <SidebarGroup className="in-data-[state=collapsed]:hidden">
+      <SidebarGroupLabel>Conversaciones</SidebarGroupLabel>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          {items.map((c) => {
+            const href = `/asesor/${encodeURIComponent(c.sessionId)}`;
+            const isActive = pathname === href;
+            return (
+              <SidebarMenuItem key={c.sessionId}>
+                <SidebarMenuButton asChild size="sm" isActive={isActive} tooltip={c.title}>
+                  <Link href={href} aria-current={isActive ? "page" : undefined}>
+                    <span className="truncate">{c.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
   );
 }
